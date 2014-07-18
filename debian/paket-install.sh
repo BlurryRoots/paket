@@ -1,4 +1,4 @@
-paket-install () {
+paket_install () {
 	if [ "$1" = "-l" ]; then
 		sudo dpkg -i "$2"
 	else

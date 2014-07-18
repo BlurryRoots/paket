@@ -8,8 +8,8 @@ function _paket_find_unknown_option () {
 }
 
 #
-function paket-find () {
-	if [ "$cmd" = "" ]; then
+function paket_find () {
+	if [ "$1" = "" ]; then
 		# print usage
 		_paket_find_usage
 	else

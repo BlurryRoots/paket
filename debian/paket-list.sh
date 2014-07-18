@@ -1,4 +1,4 @@
-paket-list () {
+paket_list () {
 	local switch=${1:-"-a"} 
 
 	case $switch in

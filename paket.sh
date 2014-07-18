@@ -1,15 +1,18 @@
-# package utilities
+# package utility
+
+# options
+paket_arch="debian"
 
 # import sub functions
-source "./paket-find.sh"
-source "./paket-install.sh"
-source "./paket-list.sh"
-source "./paket-remove.sh"
-source "./paket-sync.sh"
-source "./paket-update.sh"
+source $paket_arch"/paket-find.sh"
+source $paket_arch"/paket-install.sh"
+source $paket_arch"/paket-list.sh"
+source $paket_arch"/paket-remove.sh"
+source $paket_arch"/paket-sync.sh"
+source $paket_arch"/paket-update.sh"
 
 # prints usage
-function _packet-usage () {
+function _packet_usage () {
 	echo "usage: paket <cmd> <options>"
 }
 
@@ -19,7 +22,7 @@ function paket () {
 	{
 		# if there is no parameter
 		# print usage
-		_packet-usage
+		_packet_usage
 	}
 	else
 	{
@@ -30,36 +33,36 @@ function paket () {
 		# switch on command
 		case $cmd in
 			"ls") {
-				paket-list $@
+				paket_list $@
 			} ;;
 
 			"find") {
-				paket-find $@
+				paket_find $@
 			} ;;
 
 			"has") {
-				paket-list | grep $@
+				paket_list | grep $@
 			} ;;
 
 			"install") {
-				paket-install $@
+				paket_install $@
 			} ;;
 
 			"remove") {
-				paket-remove $@
+				paket_remove $@
 			} ;;
 
 			"sync") {
-				paket-sync $@
+				paket_sync $@
 			} ;;
 
 			"update") {
-				paket-update $@
+				paket_update $@
 			} ;;
 
 			*) {
 				echo "paket: unknown command!"
-				_packet-usage
+				_packet_usage
 			} ;;
 		esac
 	}
