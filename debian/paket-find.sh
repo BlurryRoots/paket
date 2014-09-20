@@ -8,6 +8,45 @@ function _paket_find_unknown_option () {
 }
 
 #
+function _paket_find_orify () {
+	echo $1 | sed -e 's/ /\\\|/g'
+}
+
+function _paket_find_normal () {
+	#
+	apt-cache search $@ | grep -i `echo "$@" | sed -e 's/ /\\\|/g'`
+}
+
+function _paket_find_print_pkg_detail () {
+	apt-cache policy $1
+	echo ""
+}
+
+function _paket_find_print_pkg_location () {
+	echo -e "${green}${1}${rcol}"
+	apt-cache madison $1
+	echo ""	
+}
+
+function _paket_find_verbose () {
+		local green='\e[0;32m'
+		local rcol='\e[0m'
+		#local bold=`tput smso`
+		#local offbold=`tput rmso`
+
+		# write to temp file and read it line by line
+		# apperantly im to much of a noob to do it in place :/
+		#apt-cache search $@ | grep -i `echo "$@" | sed -e 's/ /\\\|/g'` > /tmp/paket_find_buffer
+		_paket_find_normal $@ > /tmp/paket_find_buffer
+		while read line; do
+			name=$(echo $line | cut -d" " -f1)
+			_paket_find_print_pkg_detail $name
+		done < /tmp/paket_find_buffer
+
+		rm /tmp/paket_find_buffer	
+}
+
+#
 function paket_find () {
 	if [ "$1" = "" ]; then
 		# print usage
@@ -18,24 +57,10 @@ function paket_find () {
 		#
 		case $cmd in
 			"-v") {
-				# if this was on option pop it
+				# pop the verbose option
 				shift
 
-				# i have to split this
-				p=$(apt-cache search "$1")
-				# because of some weird behaviour if you
-				# call them together
-				g=$(echo "$p" | grep "$1")
-
-				# write to temp file and read it line by line
-				# apperantly im to much of a noob to do it in place :/
-				echo "$g" > /tmp/paket_find_buffer
-				while read line; do
-					name=$(echo $line | cut -d" " -f1)
-					apt-cache policy $name
-				done < /tmp/paket_find_buffer
-
-				rm /tmp/paket_find_buffer
+				_paket_find_verbose $@
 			} ;;
 
 			-*) {
@@ -44,8 +69,7 @@ function paket_find () {
 			} ;;
 
 			*) {
-				#
-				apt-cache search "$1" | grep "$1"
+				_paket_find_normal $@
 			} ;;
 		esac
 	fi
