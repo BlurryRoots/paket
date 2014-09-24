@@ -76,4 +76,4 @@ function paket () {
 	fi
 }
 
-import_subfuncs _paket_arch _paket_location
+import_subfuncs "$_paket_arch" "$_paket_location"
