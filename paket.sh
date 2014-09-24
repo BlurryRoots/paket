@@ -1,15 +1,22 @@
+#!/bin/bash
+
 # package utility
 
 # options
-paket_arch="debian"
+export _paket_arch="debian"
+export _paket_location="$HOME/Workspace/Scripts/paket"
 
-# import sub functions
-source $paket_arch"/paket-find.sh"
-source $paket_arch"/paket-install.sh"
-source $paket_arch"/paket-list.sh"
-source $paket_arch"/paket-remove.sh"
-source $paket_arch"/paket-sync.sh"
-source $paket_arch"/paket-update.sh"
+function import_subfuncs () {
+	local arch="$1"
+	local location="$2"
+	# import sub functions
+	source "$2/$1/paket-find.sh"
+	source "$2/$1/paket-install.sh"
+	source "$2/$1/paket-list.sh"
+	source "$2/$1/paket-remove.sh"
+	source "$2/$1/paket-sync.sh"
+	source "$2/$1/paket-update.sh"
+}
 
 # prints usage
 function _packet_usage () {
@@ -68,3 +75,5 @@ function paket () {
 	}
 	fi
 }
+
+import_subfuncs _paket_arch _paket_location
