@@ -1,7 +1,7 @@
 
 # prints usage
 function _packet_usage () {
-	echo "usage: paket <cmd> <options>"
+	echo "usage: paket <cmd> [options] [args]"
 }
 
 # main function
