@@ -1,34 +1,36 @@
+#!/bin/bash
+
 #
-function _paket_find_usage () {
+_paket_find_usage () {
 	echo "usage: paket find <options> <paket name>"
 }
-function _paket_find_unknown_option () {
+_paket_find_unknown_option () {
 	echo "unknown option '$1'"
 	_paket_find_usage
 }
 
 #
-function _paket_find_orify () {
+_paket_find_orify () {
 	echo $1 | sed -e 's/ /\\\|/g'
 }
 
-function _paket_find_normal () {
+_paket_find_normal () {
 	#
 	apt-cache search $@ | grep -i `echo "$@" | sed -e 's/ /\\\|/g'`
 }
 
-function _paket_find_print_pkg_detail () {
+_paket_find_print_pkg_detail () {
 	apt-cache policy $1
 	echo ""
 }
 
-function _paket_find_print_pkg_location () {
+_paket_find_print_pkg_location () {
 	echo -e "${green}${1}${rcol}"
 	apt-cache madison $1
 	echo ""	
 }
 
-function _paket_find_verbose () {
+_paket_find_verbose () {
 		local green='\e[0;32m'
 		local rcol='\e[0m'
 		#local bold=`tput smso`
@@ -47,7 +49,7 @@ function _paket_find_verbose () {
 }
 
 #
-function paket_find () {
+paket_find () {
 	if [ "$1" = "" ]; then
 		# print usage
 		_paket_find_usage
@@ -74,3 +76,5 @@ function paket_find () {
 		esac
 	fi
 }
+
+paket_find $@

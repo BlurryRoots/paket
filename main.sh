@@ -1,51 +1,58 @@
+#!/bin/bash
+
+# entry point when using paket utility
 
 # prints usage
-function _packet_usage () {
+_paket_usage () {
 	echo "usage: paket <cmd> [options] [args]"
 }
 
 # main function
-function paket () {
-	if [ "$1" = "" ]; then
-	{
+paket () {
+	# check for arguments
+	[ $# -eq 0 ] && {
 		# if there is no parameter
 		# print usage
-		_packet_usage
-	}
-	else
-	{
+		_paket_usage
+	} || {
 		# pop parameter 1
 		local cmd="$1"
 		shift
 
+		local shell="$SHELL"
+		[ -e $shell ] || [ "$shell" = "" ] && {
+			shell=sh
+		}
+
+		local subfuncs="$_paket_location/$_paket_arch"
 		# switch on command
 		case $cmd in
 			"ls") {
-				paket_list $@
+				$shell "$subfuncs/paket-list.sh" $@
 			} ;;
 
 			"find") {
-				paket_find $@
+				$shell "$subfuncs/paket-find.sh" $@
 			} ;;
 
 			"has") {
-				paket_list | grep $@
+				$shell "$subfuncs/paket-list.sh" | grep $@
 			} ;;
 
 			"install") {
-				paket_install $@
+				$shell "$subfuncs/paket-install.sh" $@
 			} ;;
 
 			"remove") {
-				paket_remove $@
+				$shell "$subfuncs/paket-remove.sh" $@
 			} ;;
 
 			"sync") {
-				paket_sync $@
+				$shell "$subfuncs/paket-sync.sh" $@
 			} ;;
 
 			"update") {
-				paket_update $@
+				$shell "$subfuncs/paket-update.sh" $@
 			} ;;
 
 			*) {
@@ -54,5 +61,4 @@ function paket () {
 			} ;;
 		esac
 	}
-	fi
 }
