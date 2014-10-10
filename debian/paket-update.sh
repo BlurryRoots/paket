@@ -18,20 +18,10 @@ paket_update () {
 	# switch on command
 	case "$cmd" in
 		"--all" | "-a") {
-			[ $# -eq 0 ] && {
-				_paket_update_usage
-				exit 1
-			}
-
 			sudo apt-get dist-upgrade
 		} ;;
 
 		"--normal" | "-n") {
-			[ $# -eq 0 ] && {
-				_paket_update_usage
-				exit 1
-			}
-
 			sudo apt-get upgrade
 		} ;;
 
