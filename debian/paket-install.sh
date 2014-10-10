@@ -32,7 +32,7 @@ paket_install () {
 		shift
 
 		# switch on command
-		case "$1" in
+		case "$cmd" in
 			"--local" | "-l") {
 				[ $# -eq 0 ] && {
 					_paket_install_usage

@@ -7,7 +7,7 @@ _paket_list_usage () {
 
 # search for packages containing the given keyword
 paket_list () {
-	local switch=${1:-"-a"} 
+	local switch=${1:-"-a"}
 
 	case $switch in
 		"-a")
