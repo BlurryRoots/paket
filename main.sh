@@ -59,6 +59,10 @@ paket () {
 				$shell "$subfuncs/paket-history.sh" $@
 			} ;;
 
+			"inspect") {
+				$shell "$subfuncs/paket-inspect.sh" $@
+			} ;;
+
 			*) {
 				echo "paket: unknown command!"
 				_packet_usage
