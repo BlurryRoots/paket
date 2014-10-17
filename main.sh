@@ -69,7 +69,7 @@ paket () {
 
 			*) {
 				echo "paket: unknown command!"
-				_packet_usage
+				_paket_usage
 			} ;;
 		esac
 	}
