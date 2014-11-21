@@ -67,6 +67,10 @@ paket () {
 				$shell "$subfuncs/paket-option.sh" $@
 			} ;;
 
+			"clean") {
+				$shell "$subfuncs/paket-clean.sh" $@
+			} ;;
+
 			*) {
 				echo "paket: unknown command!"
 				_paket_usage

@@ -7,7 +7,11 @@ _paket_remove_usage () {
 
 # removes a package
 paket_remove () {
-	sudo apt-get autoremove --purge "$1"
+	[ $# -eq 0 ] && {
+		echo "not enough arguments!"
+	} || {
+		sudo apt-get autoremove --purge "$1"
+	}
 }
 
 paket_remove $@

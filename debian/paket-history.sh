@@ -17,27 +17,27 @@ paket_history () {
 	local cmd=${1:-"-i"}
 
 	case "$cmd" in
-		"--install" | "-i") {
+		"install") {
 			zgrep --no-filename 'install ' $(ls -rt /var/log/dpkg*)
 		} ;;
 
-		"--upgrade" | "-u") {
+		"upgrade") {
 			zgrep --no-filename upgrade $(ls -rt /var/log/dpkg*)
 		} ;;
 
-		"--remove" | "-r") {
+		"remove") {
 			zgrep --no-filename remove $(ls -rt /var/log/dpkg*)
 		} ;;
 
-		"--back" | "-b") {
+		"back") {
 			zgrep --no-filename upgrade $(ls -rt /var/log/dpkg*) | \
 				grep "$2" -A10000000 | \
 				grep "$3" -B10000000 | \
 				awk '{print $4"="$5}'
 		} ;;
 
-		"--list" | "-l") {
-			zcat $(ls -rt /var/log/dpkg*)
+		"list") {
+			cat $(ls -rt /var/log/dpkg*)
 		} ;;
 
 		*) {

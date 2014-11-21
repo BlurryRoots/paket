@@ -5,6 +5,16 @@ _paket_inspect_usage () {
 	echo "usage: paket inspect [options] <package name>"
 	echo "\t-f -- lists files installed by package"
 	echo "\t-s -- prints status for package"
+	echo "\t-r -- show dependencies of package"
+	echo "\t-R -- show reverse dependencies of package"
+}
+
+# search
+_paket_inspect_search () {
+	dpkg -p $@ || {
+		echo "paket: searching for $@ ..."
+		dpkg -S $@
+	}
 }
 
 # search for packages containing the given keyword
@@ -12,25 +22,24 @@ paket_inspect () {
 	[ $# -eq 0 ] && {
 		_paket_inspect_usage
 	} || [ $# -eq 1 ] && {
-		dpkg -p $@
+		_paket_inspect_search $@
 	} || {
-		while getopts fsrR o; do
-			shift
-			case "$o" in
+		while getopts f:s:r:R: option; do
+			case "$option" in
 				f) {
-					dpkg-query -L $@
+					dpkg-query -L $OPTARG
 				} ;;
 
 				s) {
-					dpkg -p $@
+					_paket_inspect_search $OPTARG
 				} ;;
 
 				r) {
-					apt-rdepends $@
+					apt-rdepends $OPTARG
 				} ;;
 
 				R) {
-					apt-rdepends -r $@
+					apt-rdepends -r $OPTARG
 				} ;;
 
 				*) {
