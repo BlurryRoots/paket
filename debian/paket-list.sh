@@ -11,6 +11,13 @@ paket_list_installed () {
 	| egrep "[[:space:]]+install[ ^I]*"
 }
 
+paket_list_details () {
+	dpkg-query -W --showformat='${Installed-Size} ${Package} ${Version} ${Status}\n'\
+	| grep -v deinstall\
+	| sort -n\
+	| awk '{print $2"\n\t"$1"\n\t"$3"\n\t"$4}'
+}
+
 paket_list_installed_by_size () {
 	dpkg-query -W --showformat='${Installed-Size} ${Package} ${Status}\n'\
 	| grep -v deinstall\
@@ -38,6 +45,10 @@ paket_list () {
 		"--delete" | "-d") {
 			dpkg --get-selections\
 			| egrep "[[:space:]]+deinstall[ ^I]*"
+		} ;;
+
+		"--verbose" | "-v") {
+			paket_list_details
 		} ;;
 
 		*) {
