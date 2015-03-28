@@ -10,7 +10,7 @@ paket_remove () {
 	[ $# -eq 0 ] && {
 		echo "not enough arguments!"
 	} || {
-		sudo apt-get autoremove --purge "$1"
+		sudo apt-get autoremove --purge $@
 	}
 }
 
