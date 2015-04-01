@@ -14,7 +14,7 @@ After reloading your config file or restarting your shell, paket should now be a
 
 ### Basic command syntax:
 
-paket <command\> \[options\] \[paramters\]
+paket \<command\> \[options\] \[paramters\]
 
 ### Available commands:
 
