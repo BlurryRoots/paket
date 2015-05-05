@@ -5,7 +5,7 @@ _paket_repo_usage () {
 	echo "usage: paket repo [options] ppa:<username>/<ppa-name>"
 	echo "\t -i - installs ppa"
 	echo "\t -r - removes ppa"
-	echo "\t -r - purges ppa and reverts to official packages"
+	echo "\t -p - purges ppa and reverts to official packages"
 	#echo -e "\t -f - check if ppa is installed"
 }
 
