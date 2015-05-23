@@ -2,7 +2,7 @@
 
 # options
 # setup your architecture
-export _paket_arch="debian"
+export _paket_arch="arch"
 # setup the path where paket is located
 export _paket_location="$HOME/Workspace/Scripts/paket"
 
