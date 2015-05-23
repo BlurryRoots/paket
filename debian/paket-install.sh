@@ -7,16 +7,12 @@ _paket_install_usage () {
 
 # installs a package from a local package file
 _paket_install_local () {
-	local pkg_name="$1"
-
-	sudo dpkg -i "$pkg_name"
+	sudo dpkg -i $@
 }
 
 #
 _paket_install_remote () {
-	local pkg_name="$1"
-
-	sudo apt-get install -V "$pkg_name"
+	sudo apt-get install -V $@
 }
 
 # installs a package
@@ -47,9 +43,7 @@ paket_install () {
 			} ;;
 
 			*) {
-				local pkg_name="$cmd"
-
-				_paket_install_remote "$pkg_name"
+				_paket_install_remote "$cmd" $@
 			} ;;
 		esac
 	}

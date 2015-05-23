@@ -71,6 +71,10 @@ paket () {
 				$shell "$subfuncs/paket-clean.sh" $@
 			} ;;
 
+			"repo") {
+				$shell "$subfuncs/paket-repo.sh" $@
+			} ;;
+
 			*) {
 				echo "paket: unknown command!"
 				_paket_usage
@@ -78,3 +82,5 @@ paket () {
 		esac
 	}
 }
+
+paket $@
