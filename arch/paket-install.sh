@@ -16,6 +16,11 @@ _paket_install_remote () {
 	sudo pacman --color always -S $@
 }
 
+#
+_paket_install_user_repositories () {
+	yaourt -S $@
+}
+
 # installs a package
 paket_install () {
 	# check for arguments
@@ -37,6 +42,15 @@ paket_install () {
 				}
 
 				_paket_install_local $@
+			} ;;
+
+			"-u") {
+				if [ $# -eq 0 ]; then
+					_paket_install_usage
+					exit 1
+				fi
+
+				_paket_install_user_repositories $@
 			} ;;
 
 			"-*") {
