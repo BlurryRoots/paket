@@ -36,7 +36,7 @@ paket () {
 			} ;;
 
 			"has") {
-				$shell "$subfuncs/paket-list.sh" | grep $@
+				$shell "$subfuncs/paket-has.sh" $@
 			} ;;
 
 			"install") {

@@ -25,9 +25,10 @@ _paket_find_user_repository () {
 
 #
 paket_find () {
-	if [ "$1" = "" ]; then
+	if (($# == 0)); then
 		# print usage
 		_paket_find_usage
+		return 1
 	else
 		local cmd="$1"
 
@@ -38,11 +39,10 @@ paket_find () {
 			} ;;
 
 			"-*") {
-				#
 				_paket_find_unknown_option $cmd
 			} ;;
 
-			"*") {
+			*) {
 				_paket_find_normal $@
 			} ;;
 		esac
